@@ -13,8 +13,8 @@ def variance_of_laplacian(image):
 
 ap = argparse.ArgumentParser()
 ap.add_argument('-imdir', '--images-dir', required=True, help='Path to the images directory')
-ap.add_argument('-sigma', '--sigma', type=float, required=True, help='Kernal is calculated from sigma')
-ap.add_argument('-o', '--output-dir', required=True, help='Name of the output images directory')
+ap.add_argument('-thresh', '--threshold', type=float, required=True, help='Threshold to tell if the image is blurred or not')
+ap.add_argument('-o', '--output-csv', required=True, help='Name of the output csv file')
 args = vars(ap.parse_args())
 
 if args.get('images_dir', None) is None:
