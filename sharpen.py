@@ -30,9 +30,19 @@ output_dir = args.get('output_dir', None)
 
 for imagePath in paths.list_images(imdir):
 
+
     image = cv2.imread(imagePath)
-    blur = cv2.GaussianBlur(image ,(0,0), sigma)
-    sharpened_image = cv2.addWeighted(image, 1.5, blur, -0.5, 0)
+
+    # blur = cv2.GaussianBlur(image ,(0,0), sigma)
+    # sharpened_image = cv2.addWeighted(image, 1.5, blur, -0.5, 0)
+    
+    kernel = np.zeros((9,9), np.float32)
+    kernel[4, 4] = 2.0
+
+    boxFilter = np.ones((9,9), np.float32) / 81.0
+    kernel = kernel - boxFilter
+
+    sharpened_image = cv2.filter2D(image, -sigma * 20, kernel)
 
     image_path, image_name = os.path.split(imagePath)
     
